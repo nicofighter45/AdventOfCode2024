@@ -41,14 +41,14 @@ int similarity(Array *arr1, Array *arr2, int k){
 
 int main()
 {
-    FILE *file = fopen("input.txt", "r");
+    FILE *file = fopen("days/2/input.txt", "r");
     if (file == NULL)
     {
         perror("Error opening file");
         return 1;
     }
-    int *a1 = (int *)malloc(10000 * sizeof(int));
-    int *a2 = (int *)malloc(10000 * sizeof(int));
+    int *a1 = malloc(10000 * sizeof(int));
+    int *a2 = malloc(10000 * sizeof(int));
     char ch;
     char *chars = (char *)malloc(10 * sizeof(char));
     int i, j, k = 0;
@@ -99,6 +99,11 @@ int main()
 
 
     printf("Distance: %d\nSimilarity: %d", distance(arr1, arr2, i), similarity(arr1, arr2, i));
+
+    free(a1);
+    free(a2);
+    free(arr1);
+    free(arr2);
     
     return 0;
 }
