@@ -11,6 +11,7 @@ int number_of_lines_in_file(char *filename)
     }
     int number_of_lines = 0;
 
+
     while (!feof(f))
     {
         if (fgetc(f) == '\n')
@@ -98,13 +99,19 @@ int main (int argc, char *argv[]){
         printf("did not managae to open the document\n");
     }
     int temp;
+    char c;
     for (int i = 0; i < n; i++)
-    {
-        while (fgetc(f1) != '\n')
+    { 
+        do
         {
-            fscanf(f1,"%d",&temp); 
-            lengths_of_reports [i] += 1;
-        }
+            c = fgetc(f1);
+            if (c == ' ')
+            {
+                lengths_of_reports[i] += 1;
+            }
+            
+        } while (c != '\n');
+        lengths_of_reports[i] += 1;
     }
 
     fclose(f1);
@@ -121,7 +128,7 @@ int main (int argc, char *argv[]){
     int safe_reports = 0;
     int len;
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < n; i++)
     {
         len = lengths_of_reports[i];
         int* i_th_report = malloc(len * sizeof(int));
@@ -130,8 +137,8 @@ int main (int argc, char *argv[]){
         {
             fscanf(f,"%d",&i_th_report[k]);
         }
-        printf("this is report %d\n",i);
-        print_list (i_th_report,len);
+        //printf("this is report %d\n",i);
+        //print_list (i_th_report,len);
 
 
         if (is_safe(i_th_report,len))
@@ -153,8 +160,10 @@ int main (int argc, char *argv[]){
         safe = false;
         free(i_th_report);
     }
-    printf("%d\n",safe_reports);
+    printf("there are %d safe reports\n",safe_reports);
     free(lengths_of_reports);
     fclose(f);
     return 0;
 }
+
+/*the correct answer is 455*/
