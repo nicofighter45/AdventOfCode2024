@@ -13,28 +13,39 @@ int main (int argc, char *argv[]){
     int last_int;
     fscanf(f,"%d",&last_int);
     bool b = true;
-    
+    bool incr = true;
+    bool desc = true;
 
     while (!feof(f))
     {
         while (fgetc(f) != '\n')
         {
             fscanf(f,"%d",&temp); 
-
+            
+            incr = incr && (temp > last_int);
+            desc = desc && (temp < last_int);
+            
             if (abs(temp - last_int) > 3)
             {
                 b = false;
             }
+            
+            
             last_int = temp;
         }
         fscanf(f,"%d",&last_int);
-        if (!b)
+
+        if (b && (incr || desc))
         {
             safe_reports += 1;
         }
         b = true;
+        incr = true;
+        desc = true;
     }
-    printf("%d", safe_reports);
+    printf("%d\n", safe_reports);
     fclose(f);
     return 0;
 }
+
+// right answer 402
