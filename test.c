@@ -1,11 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void makemylifebetter()
-{
-}
-int main()
-{
-    printf("hello world");
+int main (){
+    printf("%d", atoi("2"));
     return 0;
 }
