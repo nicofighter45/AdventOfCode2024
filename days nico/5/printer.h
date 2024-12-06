@@ -18,6 +18,18 @@ typedef struct Printer {
     int printables_count;
 } Printer;
 
+
+typedef struct PositionError {
+    Rule* rule;
+    Printable* printable;
+} PositionError;
+
+#define PositionErrorNULL (PositionError){NULL, NULL}
+
+int isErrorNull(PositionError error){
+    return error.rule == NULL && error.printable == NULL;
+}
+
 Rule* createRule(char* line, int size){
     Rule* rule = (Rule*)malloc(sizeof(Rule));
     char* buffer = (char*) malloc(size * sizeof(char));
