@@ -3,6 +3,8 @@
 #include <stdlib.h>
 
 int main(){
-    char **matrice = getChars("input.txt");
+    File* file = createFile("test.txt");
+    printFile(file);
+    
     return 1;
 }
