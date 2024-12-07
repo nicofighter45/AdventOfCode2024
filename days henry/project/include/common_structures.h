@@ -62,4 +62,7 @@ typedef struct int_int_list int_int_list;
 #define NUM_DIRECTIONS 8
 extern const point DIRECTIONS[NUM_DIRECTIONS];
 
+#define NUM_CARDINAL_DIRECTIONS 4
+extern const point CARDINAL_DIRECTIONS[NUM_CARDINAL_DIRECTIONS];
+
 #endif // COMMON_STRUCTURES_H

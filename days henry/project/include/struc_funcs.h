@@ -36,11 +36,26 @@ void print_graph(graph G);
 void print_int_list(int_list l);
 
 /*
+@brief rotates a vector 90 degrees to the right. 
+@param vector is the vector we are rotating
+@return nothing, modification is in place.
+*/
+void rotate_vector_r(point *vector);
+
+/*
 @brief prints a readable version of the int_list
 @param l is the list we are printing
 @return nothing, simply prints l.
 */
 void print_int_int_list(int_int_list l);
+
+/*
+@brief finds elemetnc c in char_matrix M
+@param M is the matrix we are looking inside of
+@param c is the char we are looking for
+@return the location of c in M, -1,-1 if it did not find it.
+*/
+point find_char(char_matrix M, char c);
 
 /*
 @brief adds an arc to the graph from point i to point j
@@ -87,6 +102,12 @@ graph rm_elt(graph g, int e);
 @return nothing, simply frees
 */
 void free_mat(char_matrix M);
+
+/*
+@brief gives a matrix of . of shape n,m
+@return a char_matrix
+*/
+char_matrix empty_mat(int n,int m);
 
 /*
 @brief frees the allocated space for the int_int_list
