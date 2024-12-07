@@ -18,6 +18,14 @@ const point DIRECTIONS[NUM_DIRECTIONS] = {
     { 1, -1}   // Down-right
 };
 
+// List of 4 cardinal directions
+const point CARDINAL_DIRECTIONS[NUM_CARDINAL_DIRECTIONS] = {
+    { 0,  1},  // Up
+    { 1,  0},  // Right
+    { 0, -1},  // Down
+    {-1,  0},  // Left
+};
+
 void print_point(point p){
     printf("point is (%d;%d)\n",p.i,p.j);
     return;
@@ -98,6 +106,24 @@ void free_graph(graph g){
     free(g.elements);
 }
 
+point find_char(char_matrix M, char c){
+    for (int i = 0; i < M.n; i++)
+    {
+        for (int j = 0; j < M.m; j++)
+        {
+            if (M.mat[i][j] == c)
+            {
+                return (point){i,j};
+            }
+            
+        }
+        
+    }
+    printf("could not find %c in matrix M : \n",c);
+    print_mat (M);
+    return (point){-1,-1};
+}
+
 graph copy_graph(graph g){
     int* new_el = malloc(g.n * sizeof(int));
     int ** new_adj_mat = malloc(g.n * sizeof(int*));
@@ -139,6 +165,28 @@ graph sub_graph(graph g,int_list l){
         
     }
     return (graph){l.n,new_el,new_adj_mat};
+}
+
+void rotate_vector_r(point *vector){
+    int temp = vector->i;
+    vector->i = vector->j;
+    vector->j = -temp;
+}
+
+char_matrix empty_mat(int n,int m){
+    char ** mat = malloc(n * sizeof(char*));
+    char_matrix M = (char_matrix){n,m,mat};
+    for (int i = 0; i < n; i++)
+    {
+        M.mat[i] = malloc(m * sizeof(char));
+        for (int j = 0; j < m; j++)
+        {
+            M.mat[i][j] = '.';
+        }
+        
+    }
+    
+    return M;
 }
 
 bool is_root(graph g, int e){
