@@ -1,6 +1,11 @@
-#include <stdlib>
+#include <stdlib.h>
+#include <stdio.h>
 
-int main (){
-    
+void makemylifebetter()
+{
+}
+int main()
+{
+    printf("hello world");
     return 0;
 }
