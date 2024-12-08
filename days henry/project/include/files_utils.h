@@ -37,9 +37,23 @@ specifically looking for i|j patterns interpreted as i->j in the graph
 graph text_to_graph(char* filename);
 
 /*
+@brief reads a file and transforms it into an int_int_ilst of the numbers
+@param filename is the name of the file
+@return an int-int list of the numbers in the file
+*/
+int_int_list text_to_int_int_list(char* filename);
+
+/*
+@brief reads a file and gives the number of numbers on every line
+@param filename is the name of the file
+@return an int_list with the number of numbers on every line
+*/
+int_list nb_num_on_lines(char* filename);
+
+/*
 @brief reads a file and finds every occuring number in it
 @param filename is the name of the file
-@return a pointer to allocated memory space to 
+@return a pointer to allocated memory space to every number in the text
 */
 int_list all_num_in_text(char* filename);
 
