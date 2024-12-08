@@ -72,6 +72,14 @@ void add_arc(graph g, int i, int j);
 void rm_arc(graph g, int i, int j);
 
 /*
+@brief removes element i from int list l
+@param l is the initial int_list
+@param i is the index of the nujmber we want to remove
+@return a new int_list (do not forget to free it !!)
+*/
+int_list rm_elt_l(int_list l, int i);
+
+/*
 @brief says if there is an arc in the graph from point i to point j
 @param g is the graph we are checking
 @param i is the start of the arc

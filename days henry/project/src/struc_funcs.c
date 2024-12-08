@@ -189,6 +189,18 @@ char_matrix empty_mat(int n,int m){
     return M;
 }
 
+
+int_list rm_elt_l(int_list l, int i){
+    int* new_l = malloc((l.n-1 )* sizeof(int));
+    int found = 0;
+    for (int j = 0; j < l.n-1; j++)
+    {
+        found += (i == j);
+        new_l[j] = l.l[j + found]; 
+    }
+    return (int_list){l.n-1,new_l};
+}
+
 bool is_root(graph g, int e){
 
     if (!in((int_list){g.n,g.elements},e))

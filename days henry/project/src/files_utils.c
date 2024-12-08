@@ -323,6 +323,136 @@ graph text_to_graph(char* filename){
 
 }
 
+int_list nb_num_on_lines(char* filename){
+    int nb_lines = number_of_lines(filename);
+    int_list ln = (int_list){nb_lines,malloc(nb_lines*sizeof(int))};
+
+    FILE*f = fopen(filename,"r");
+
+    // check that the file opened correctly
+
+    if (f == NULL)
+    {
+        perror("could not open file");
+    }
+
+    //here we go through the file
+
+    int i = 0,j = 0,tempn = 0;
+    char c;
+    bool in_number = false;
+
+    while ((c = fgetc(f)) != EOF)
+    {
+        if (isdigit(c))
+        {
+            if (in_number)
+            {
+                tempn *= 10;
+                tempn += c - '0'; // is like doing atoi(c)
+            }
+            else
+            {
+                in_number = true;
+                tempn = c - '0';
+            }
+            
+        }
+        else if (in_number)
+        {
+            j += 1;
+            in_number = false;
+        }
+        if (c == '\n')
+        {   
+            ln.l[i++] = j;
+            j = 0;
+        }
+        
+
+    }
+
+    if (in_number)
+    {
+        j += 1;
+        ln.l[i] = j;
+    }
+    
+
+    return ln;
+
+
+
+}
+
+
+int_int_list text_to_int_int_list(char* filename){
+
+    int_list ln = nb_num_on_lines(filename);
+    
+
+    int_list * ll = malloc (ln.n * sizeof(int_list));;
+
+    for (int i = 0; i < ln.n; i++)
+    {
+        ll[i].n = ln.l[i];
+        ll[i].l = malloc(ln.l[i] * sizeof(int));
+    }
+
+    FILE*f = fopen(filename,"r");
+
+    // check that the file opened correctly
+
+    if (f == NULL)
+    {
+        perror("could not open file");
+    }
+
+
+    int i = 0, j = 0, tempn = 0;
+    char c;
+    bool in_number = false;
+
+    while ((c = fgetc(f)) != EOF)
+    {
+        if (isdigit(c))
+        {
+            if (in_number)
+            {
+                tempn *= 10;
+                tempn += c - '0'; // is like doing atoi(c)
+            }
+            else
+            {   
+                in_number = true;
+                tempn = c - '0';
+            }
+            
+        }
+        else if (in_number)
+        {
+            ll[i].l[j++] = tempn;
+            in_number = false;
+        }
+        if (c == '\n')
+        {
+            ll[i++].l[j] = tempn;
+            j = 0;
+        }
+        
+    }
+
+    if (in_number)
+    {
+        ll[i].l[j] = tempn; 
+    }
+    
+    fclose(f);
+
+    int_int_list l = (int_int_list){ln.n,ll};
+
+    return l;
+}
 
 
 
