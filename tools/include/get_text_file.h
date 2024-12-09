@@ -48,7 +48,6 @@ File *createFile(char *name)
         {
             matrice[i] = (char *)malloc(line_length * sizeof(char));
             size_of_lines[i] = line_length;
-            printf("%d %d\n", i, size_of_lines[i]);
             line_length = 0;
             i++;
             continue;
@@ -57,9 +56,6 @@ File *createFile(char *name)
     }
     matrice[i] = (char *)malloc(line_length * sizeof(char));
     size_of_lines[i] = line_length;
-    for(int i = 0; i < lines; i++){
-        printf("%d\n", size_of_lines[i]);
-    }
     fclose(file);
     file = fopen(name, "r");
     i = 0;
@@ -82,6 +78,5 @@ File *createFile(char *name)
     f->matrice = matrice;
     f->lines = lines;
     f->size_of_line = size_of_lines;
-    printf("%d %d", f->lines, f->size_of_line[0]);
     return f;
 }
