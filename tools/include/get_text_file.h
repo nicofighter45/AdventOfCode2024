@@ -5,7 +5,7 @@ typedef struct File
 {
     char **matrice;
     int lines;
-    char *size_of_line;
+    int *size_of_line;
 } File;
 
 void printFile(File *file)
@@ -39,7 +39,7 @@ File *createFile(char *name)
     fclose(file);
     file = fopen(name, "r");
     char **matrice = (char **)malloc(lines * sizeof(char *));
-    char *size_of_lines = (char *)malloc(lines * sizeof(int));
+    int *size_of_lines = (int *)malloc(lines * sizeof(int));
     int line_length = 0;
     int i = 0;
     while ((ch = fgetc(file)) != EOF)
@@ -48,6 +48,7 @@ File *createFile(char *name)
         {
             matrice[i] = (char *)malloc(line_length * sizeof(char));
             size_of_lines[i] = line_length;
+            printf("%d %d\n", i, size_of_lines[i]);
             line_length = 0;
             i++;
             continue;
@@ -56,6 +57,9 @@ File *createFile(char *name)
     }
     matrice[i] = (char *)malloc(line_length * sizeof(char));
     size_of_lines[i] = line_length;
+    for(int i = 0; i < lines; i++){
+        printf("%d\n", size_of_lines[i]);
+    }
     fclose(file);
     file = fopen(name, "r");
     i = 0;
@@ -78,5 +82,6 @@ File *createFile(char *name)
     f->matrice = matrice;
     f->lines = lines;
     f->size_of_line = size_of_lines;
+    printf("%d %d", f->lines, f->size_of_line[0]);
     return f;
 }
