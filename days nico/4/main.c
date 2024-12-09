@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-char **get_matrice(int size)
+char **get_matrice(int size, char *name)
 {
-    FILE *file = fopen("input.txt", "r");
+    FILE *file = fopen(name, "r");
     if (file == NULL)
     {
         perror("Error opening file");
@@ -55,6 +55,15 @@ int vertical_and_horizontal(char y[], char **matrice, int size)
             else
             {
                 straight_k = 0;
+                if (y[straight_k] == matrice[i][j])
+                {
+                    straight_k++;
+                    if (straight_k == 4)
+                    {
+                        total += 1;
+                        straight_k = 0;
+                    }
+                }
             }
             if (y[reverse_straight_k] == matrice[i][j])
             {
@@ -68,6 +77,15 @@ int vertical_and_horizontal(char y[], char **matrice, int size)
             else
             {
                 reverse_straight_k = 3;
+                if (y[reverse_straight_k] == matrice[i][j])
+                {
+                    reverse_straight_k--;
+                    if (reverse_straight_k == -1)
+                    {
+                        total += 1;
+                        reverse_straight_k = 3;
+                    }
+                }
             }
             if (y[vertical_k] == matrice[j][i])
             {
@@ -81,6 +99,15 @@ int vertical_and_horizontal(char y[], char **matrice, int size)
             else
             {
                 vertical_k = 0;
+                if (y[vertical_k] == matrice[j][i])
+                {
+                    vertical_k++;
+                    if (vertical_k == 4)
+                    {
+                        total += 1;
+                        vertical_k = 0;
+                    }
+                }
             }
             if (y[reverse_vertical_k] == matrice[j][i])
             {
@@ -94,6 +121,15 @@ int vertical_and_horizontal(char y[], char **matrice, int size)
             else
             {
                 reverse_vertical_k = 3;
+                if (y[reverse_vertical_k] == matrice[j][i])
+                {
+                    reverse_vertical_k--;
+                    if (reverse_vertical_k == -1)
+                    {
+                        total += 1;
+                        reverse_vertical_k = 3;
+                    }
+                }
             }
         }
         straight_k = 0;
@@ -112,7 +148,7 @@ int diagonal(char y[], char **matrice, int size)
     int other_diag_k = 0;
     int reverse_other_diag_k = 3;
 
-    for (int i = -(size-1); i < size; i++)
+    for (int i = -(size - 1); i < size; i++)
     {
         for (int k = 0; k < size - abs(i); k++)
         {
@@ -134,6 +170,7 @@ int diagonal(char y[], char **matrice, int size)
                 diag_k++;
                 if (diag_k == 4)
                 {
+                    printf("diag_k:%d %d\n", i, k);
                     total += 1;
                     diag_k = 0;
                 }
@@ -141,6 +178,15 @@ int diagonal(char y[], char **matrice, int size)
             else
             {
                 diag_k = 0;
+                if (y[diag_k] == c1)
+                {
+                    diag_k++;
+                    if (diag_k == 4)
+                    {
+                        total += 1;
+                        diag_k = 0;
+                    }
+                }
             }
             if (y[reverse_diag_k] == c1)
             {
@@ -154,6 +200,15 @@ int diagonal(char y[], char **matrice, int size)
             else
             {
                 reverse_diag_k = 3;
+                if (y[reverse_diag_k] == c1)
+                {
+                    reverse_diag_k--;
+                    if (reverse_diag_k == -1)
+                    {
+                        total += 1;
+                        reverse_diag_k = 3;
+                    }
+                }
             }
             if (y[other_diag_k] == c2)
             {
@@ -167,6 +222,15 @@ int diagonal(char y[], char **matrice, int size)
             else
             {
                 other_diag_k = 0;
+                if (y[other_diag_k] == c2)
+                {
+                    other_diag_k++;
+                    if (other_diag_k == 4)
+                    {
+                        total += 1;
+                        other_diag_k = 0;
+                    }
+                }
             }
             if (y[reverse_other_diag_k] == c2)
             {
@@ -180,12 +244,44 @@ int diagonal(char y[], char **matrice, int size)
             else
             {
                 reverse_other_diag_k = 3;
+                if (y[reverse_other_diag_k] == c2)
+                {
+                    reverse_other_diag_k--;
+                    if (reverse_other_diag_k == -1)
+                    {
+                        total += 1;
+                        reverse_other_diag_k = 3;
+                    }
+                }
             }
         }
-        int diag_k = 0;
-        int reverse_diag_k = 3;
-        int other_diag_k = 0;
-        int reverse_other_diag_k = 3;
+        diag_k = 0;
+        reverse_diag_k = 3;
+        other_diag_k = 0;
+        reverse_other_diag_k = 3;
+    }
+    return total;
+}
+
+int cross(char **matrice, int size){
+    int total = 0;
+    for(int i = 1; i < size - 1; i++){
+        for(int j = 1; j < size - 1; j++){
+            if(matrice[i][j] == 'A'){
+                if(matrice[i-1][j-1] == 'M' && matrice[i-1][j+1] == 'M' && matrice[i+1][j-1] == 'S' && matrice[i+1][j+1] == 'S'){
+                    total += 1;
+                }
+                else if(matrice[i+1][j-1] == 'M' && matrice[i+1][j+1] == 'M' && matrice[i-1][j-1] == 'S' && matrice[i-1][j+1] == 'S'){
+                    total += 1;
+                }
+                else if(matrice[i-1][j-1] == 'M' && matrice[i+1][j-1] == 'M' && matrice[i-1][j+1] == 'S' && matrice[i+1][j+1] == 'S'){
+                    total += 1;
+                }
+                else if(matrice[i-1][j+1] == 'M' && matrice[i+1][j+1] == 'M' && matrice[i-1][j-1] == 'S' && matrice[i+1][j-1] == 'S'){
+                    total += 1;
+                }
+            }
+        }
     }
     return total;
 }
@@ -193,16 +289,16 @@ int diagonal(char y[], char **matrice, int size)
 int main()
 {
     int size = 140;
-    char **matrice = get_matrice(size);
+    char **matrice = get_matrice(size, "input.txt");
 
     int total = 0;
     char y[] = {'X', 'M', 'A', 'S'};
 
     total += vertical_and_horizontal(y, matrice, size);
-    printf("Total:%d", total);
     total += diagonal(y, matrice, size);
 
-    printf("Total:%d", total);
+    printf("Total:%d\n", total);
+    printf("Cross: %d\b", cross(matrice, size));
 
     return 0;
 }
