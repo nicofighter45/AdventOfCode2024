@@ -327,3 +327,70 @@ bool is_arc(graph g, int i, int j){
     }
     return (g.adjacency_matrix[i][j] == 1);
 }
+
+
+char* all_symbols(char_matrix M){
+    char symbs[M.n*M.m];
+    int len = 0;
+    char c;
+    for (int i = 0; i < M.n; i++)
+    {
+        for (int j = 0; j < M.m; j++)
+        {
+            c = M.mat[i][j];
+            if (!(char_in_str(c,symbs,len)))
+            {
+                symbs[len++] = c;
+            }
+            
+        }
+        
+    }
+
+    // symbs lives in local memory, let's fix that;
+    char * fsymbs = malloc((len+1)*sizeof(char));
+    for (int i = 0; i < len; i++)
+    {
+        fsymbs[i] = symbs[i];
+    }
+    fsymbs[len + 1] = '\0';
+    return fsymbs;
+}
+
+int count (char_matrix M, char c){
+    int nb_occ = 0;
+    for (int i = 0; i < M.n; i++)
+    {
+        for (int j = 0; j < M.m; j++)
+        {
+            if (M.mat[i][j] == c)
+            {
+                nb_occ ++;
+            }
+            
+        }
+        
+    }
+    return nb_occ;
+}
+
+point * find (char_matrix M, char c){
+
+    int nb_occ = count(M,c),k = 0;
+
+    point * coords = malloc((nb_occ)*sizeof(point));
+
+    for (int i = 0; i < M.n; i++)
+    {
+        for (int j = 0; j < M.m; j++)
+        {
+            if (M.mat[i][j] == c)
+            {
+                coords[k++] = (point){i,j};
+            }
+            
+        }
+        
+    }
+    return coords;
+}

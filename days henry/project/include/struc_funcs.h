@@ -58,6 +58,29 @@ void print_int_int_list(int_int_list l);
 point find_char(char_matrix M, char c);
 
 /*
+@brief finds all symbols of M
+@param M is the matrix we are looking inside of
+@return the list of all symbols in a matrix
+*/
+char* all_symbols(char_matrix M);
+
+/*
+@brief finds all occurences of c in M
+@param M is the matrix we are looking inside of
+@param c is the character we are looking for
+@return point* of all occurences of c in M
+*/
+point * find (char_matrix M, char c);
+
+/*
+@brief finds all occurences of c in M
+@param M is the matrix we are looking inside of
+@param c is the character we are looking for
+@return point* of all occurences of c in M
+*/
+int count (char_matrix M, char c);
+
+/*
 @brief adds an arc to the graph from point i to point j
 @param g is the graph we are adding an arc to 
 @return nothing, simply adds the arc
