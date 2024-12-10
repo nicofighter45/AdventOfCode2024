@@ -130,3 +130,13 @@ char * rm_occ (char c,char* s){
     free (s);
     return new_s;
 }
+
+int sum (int_list l){
+    int total = 0;
+    for (int i = 0; i < l.n; i++)
+    {
+        total += l.l[i];
+    }
+    return total;
+    
+}

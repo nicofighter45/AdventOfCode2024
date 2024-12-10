@@ -67,4 +67,11 @@ int norm_sq (point v);
 */
 char * rm_occ (char c,char* s);
 
+/*
+@brief gives the sum of all numbers in a list
+@param l is the list we are summing elts from
+@return the sum of the elts of l.
+*/
+int sum (int_list l);
+
 #endif //UTILS_H

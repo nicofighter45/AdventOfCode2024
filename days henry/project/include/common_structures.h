@@ -24,6 +24,14 @@ struct char_matrix
 
 typedef struct char_matrix char_matrix;
 
+struct int_matrix
+{
+    int n,m;
+    int ** mat;
+};
+
+typedef struct int_matrix int_matrix;
+
 struct sterr
 {   
     char* s;

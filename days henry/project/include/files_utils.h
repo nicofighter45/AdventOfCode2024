@@ -57,4 +57,11 @@ int_list nb_num_on_lines(char* filename);
 */
 int_list all_num_in_text(char* filename);
 
+/*
+@brief reads a file and gives how many characters are in it
+@param filename is the name of the file
+@return the number of characters in a text
+*/
+int nb_char (char* filename);
+
 #endif // FILES_UTILS_H

@@ -455,6 +455,25 @@ int_int_list text_to_int_int_list(char* filename){
 }
 
 
+int nb_char (char* filename){
+    FILE*f = fopen(filename,"r");
+
+    // check that the file opened correctly
+
+    if (f == NULL)
+    {
+        perror("could not open file");
+    }
+
+    int n = 0;
+    char c;
+    while((c = fgetc(f) != EOF)){
+        n ++;
+    }
+
+    return n;
+    
+}
 
 
 
