@@ -394,3 +394,117 @@ point * find (char_matrix M, char c){
     }
     return coords;
 }
+
+char cdepile(cpile cp){
+    cp.height --;
+    return cp.pile[cp.height + 1];
+}
+
+point pdepile(ppile p){
+    p.height --;
+    if (p.height < 0)
+    {
+        perror("tried to depile an empty pile\n");
+        return (point){-1,-1};
+    }
+    
+    return p.pile[p.height + 1];
+}
+
+void add_to_ppile(ppile p,point a){
+    if (p.height == p.max_height)
+    {
+        perror("tried to add element to max height of a pile\n");
+        return;
+    }
+    p.height ++;
+    p.pile[p.height] = a;
+    return;
+}
+
+bool is_empty_ppile (ppile p){
+    return p.height < 0;
+}
+
+bool is_in_ppile (ppile p, point a){
+    for (int i = 0; i <= p.height; i++)
+    {
+        if (p.pile[i].i == a.i && p.pile[i].j == a.j)
+        {
+            return true;
+        }
+        
+    }
+    return false;
+}
+
+point_list ppile_to_point_list (ppile p){
+    point * pl = malloc((p.height + 1) * sizeof(point));
+    for (int i = 0; i < p.height + 1; i++)
+    {
+        pl[i] = p.pile[i];
+    }
+    free (p.pile);
+    return (point_list){p.height + 1,pl};
+}
+
+ppile initialize_ppile (point a, int max_height){
+    point * ca = malloc ((max_height + 1) * sizeof(point));
+    ca[0] = a;
+    return (ppile){ca,0,max_height};
+}
+
+void print_ppile (ppile p){
+    printf("printing ppile, filled to %d/%d\n",p.height,p.max_height);
+    for (int i = 0; i < p.height + 1; i++)
+    {
+        printf("(%d,%d) ",p.pile[i].i,p.pile[i].j);
+    }
+    printf("\n");
+}
+
+point_list niehgbours_of_connex (char_matrix M, point a, unsigned char ** seen, ppile neighbours){
+    char c = M.mat[a.i][a.j];
+    ppile connex_part_a = initialize_ppile(a,M.m * M.n);
+    point curr, next;
+    int discovered = -1; // this tells us up till where in the ppile we have checked for neighbours of points
+    while (connex_part_a.height - discovered > 0)
+    {
+        discovered ++;
+        curr = connex_part_a.pile[discovered];
+        for (int dir = 0; dir < CARDINAL_DIRECTIONS; dir++)
+        {
+            next = add_points(curr,CARDINAL_DIRECTIONS[dir]);
+            if (in_mat(next, M))
+            {
+                if (M.mat[next.i][next.j] == c)
+                {
+                    if (!is_in_ppile(connex_part_a,next))
+                    {
+                        add_to_ppile(connex_part_a,next);
+                    }
+                    if (!seen[next.i][next.j])
+                    {
+                        seen[next.i][next.j] = 1;
+                    }
+                    
+                }
+                else if (!seen[next.i][next.j])
+                {
+                    add_to_ppile(neighbours,next);
+                    seen[next.i][next.j] = 1;
+                }
+                
+                
+            }
+        }
+
+    }
+    return ppile_to_point_list(connex_part_a);
+}
+
+
+
+point_set connex_parts (char_matrix M){
+
+}

@@ -74,4 +74,19 @@ char * rm_occ (char c,char* s);
 */
 int sum (int_list l);
 
+/*
+@brief gives the number of digits of an int
+@param a is the number we are looking at
+@return the number of digits of an int
+*/
+int nb_digits(int a);
+
+/*
+@brief gives me a ** b
+@param a is the base
+@param b is the exponenet
+@return a ^ b;
+*/
+int power(int a,int b);
+
 #endif //UTILS_H

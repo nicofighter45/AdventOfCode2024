@@ -454,6 +454,98 @@ int_int_list text_to_int_int_list(char* filename){
     return l;
 }
 
+int_list text_to_int_list(char* filename){
+
+    int n = 0;
+    
+    FILE*f = fopen(filename,"r");
+
+    // check that the file opened correctly
+
+    if (f == NULL)
+    {
+        perror("could not open file");
+    }
+
+    int i = 0,tempn;
+    char c;
+    bool in_number = false;
+
+    while ((c = fgetc(f)) != EOF)
+    {
+        if (isdigit(c))
+        {
+            if (in_number)
+            {
+                tempn *= 10;
+                tempn += c - '0'; // is like doing atoi(c)
+            }
+            else
+            {   
+                in_number = true;
+                tempn = c - '0';
+            }
+            
+        }
+        else if (in_number)
+        {
+            n++;
+            in_number = false;
+        }
+        
+    }
+
+    if (in_number)
+    {
+        n++;
+    }
+
+    rewind(f);
+    
+    int * l = malloc (n * sizeof(int));;
+    if (!l)
+    {
+        perror("could not allocate space for l\n");
+    }
+    in_number = false;
+    i = 0;
+
+    while ((c = fgetc(f)) != EOF)
+    {
+        if (isdigit(c))
+        {
+            if (in_number)
+            {
+                tempn *= 10;
+                tempn += c - '0'; // is like doing atoi(c)
+            }
+            else
+            {   
+                in_number = true;
+                tempn = c - '0';
+            }
+            
+        }
+        else if (in_number)
+        {
+            l[i++] = tempn;
+            in_number = false;
+        }
+        
+    }
+
+    if (in_number)
+    {
+        l[i] = tempn;
+    }
+    
+    fclose(f);
+
+    int_list list = (int_list){n,l};
+
+    return list;
+}
+
 
 int nb_char (char* filename){
     FILE*f = fopen(filename,"r");

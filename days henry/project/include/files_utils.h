@@ -44,6 +44,13 @@ graph text_to_graph(char* filename);
 int_int_list text_to_int_int_list(char* filename);
 
 /*
+@brief reads a file and transforms it into an int_ilst of the numbers
+@param filename is the name of the file
+@return an int list of the numbers in the file
+*/
+int_list text_to_int_list(char* filename);
+
+/*
 @brief reads a file and gives the number of numbers on every line
 @param filename is the name of the file
 @return an int_list with the number of numbers on every line

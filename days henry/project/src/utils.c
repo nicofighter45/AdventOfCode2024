@@ -140,3 +140,27 @@ int sum (int_list l){
     return total;
     
 }
+
+int nb_digits(int a){
+    int i = 0;
+    while (a > 0)
+    {
+        a = a/10;
+        i++;
+    }
+    
+    return i;
+}
+
+int power(int a,int b){
+    if (b < 0)
+    {
+        printf("tried a negative exponent\n");
+    }
+    int res = 1;
+    for (int i = 0; i < b; i++)
+    {
+        res *= a;
+    }
+    return res;
+}

@@ -195,4 +195,67 @@ point scale (int h,point p);
 */
 bool in_mat(point p, char_matrix M);
 
+/*
+@brief gives the top value of a cpile and removes it
+@param p is the pile we are depiling
+@return an int, the top element of the pile
+*/
+char cdepile(cpile cp);
+
+/*
+@brief initializes a pile with one element
+@param a is the point we are starting the pile with
+@param max_height is the maximum height the pile will be able to hold
+@reaturn ppile according to specifications
+*/
+ppile initialize_ppile (point a, int max_height);
+
+/*
+@brief tells me whether a pile is empty
+@param p is the pile we are checking for
+@return a boolean
+*/
+bool is_empty_ppile (ppile p);
+
+/*
+@brief prints a human_readable format of a ppile
+@param p is the ppile we are printing
+@return nothing, simply prints
+*/
+void print_ppile (ppile p);
+
+/*
+@brief aknowledging that this goes against the philosophy of piles, and not caring:
+@param p is the pile we are looking in
+@param a is the point we aare looking fojr in ppile p
+@return boolean waheather a is in p or not
+*/
+bool is_in_ppile (ppile p, point a);
+
+/*
+@brief transforms a ppile to a point list of appropriate height
+@param p is the ppile we are transforing
+@return a point_list of the elements of p;
+*/
+point_list ppile_to_point_list (ppile p);
+
+/*
+@brief piles up the yet unseen neighbours of a connex part of the matrix
+@param M char_matrix is the matrix wse are looking through
+@param a point is the connex part we are going to explore
+@param seen is an unsigned char ** bitmap of M
+@param neighbours is the ppile we are going to add to of the neighbours 
+@return point_list of a's connex part
+*/
+point_list niehgbours_of_connex  (char_matrix M, point a, unsigned char ** seen, ppile neighbours);
+
+/*
+@brief gives the connexc parts of a char_matrix
+@param M is the matrix we are looking at
+@return a point_point_list p, where p.n is tshe number of connex parts, p.pl[i] is a representative, and p.l[i] is the nubmer of elts in that connex part. 
+*/
+point_set connex_parts (char_matrix M);
+
+
+
 #endif // STRUC_FUNCS_H
